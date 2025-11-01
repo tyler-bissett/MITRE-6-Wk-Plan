@@ -43,17 +43,20 @@ This document tracks the main security requirements for the MITRE eCTF 2025 proj
 ### 2. Message Authentication
 
 #### 2.1 UART Message MAC (Issue #12)
-**Requirement**: Wrap UART messages with MAC (HMAC/GCM-SIV-style tag)
+**Requirement**: Wrap UART messages with Message Authentication Code (MAC) using either HMAC or GCM-SIV-style authentication tags
 
 **Status**: Open  
 **Priority**: High  
 **Issue Reference**: #12
 
+**Implementation Notes**: Choose either HMAC-SHA256 or GCM-SIV authentication tags based on hardware support and performance requirements. GCM-SIV provides nonce-misuse resistance if using AES-GCM hardware.
+
 **Verification Criteria**:
-- [ ] HMAC or GCM-SIV tags added to all UART packets
-- [ ] Tags verified before parsing messages
-- [ ] Invalid tags properly rejected
+- [ ] Selected MAC algorithm (HMAC-SHA256 or GCM-SIV) implemented for all UART packets
+- [ ] Authentication tags verified before parsing messages
+- [ ] Invalid or missing tags properly rejected
 - [ ] MAC algorithm properly implemented and tested
+- [ ] Tag length and key management properly handled
 
 **Security Impact**: Prevents unauthorized message injection and tampering on UART communication channel
 
